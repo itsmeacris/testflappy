@@ -1,6 +1,12 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const startBtn = document.getElementById("startBtn");
+const gameOverBox = document.getElementById("gameOverBox");
+const restartBtn = document.getElementById("restartBtn");
+const scoreText = document.getElementById("scoreText");
+const bestScoreText = document.getElementById("bestScoreText");
+
 let frames = 0;
 const DEGREE = Math.PI / 180;
 
@@ -109,6 +115,9 @@ function gameOver() {
     hitSound.play();
     dieSound.play();
     gameState = 2;
+    gameOverBox.style.display = "block";
+    scoreText.textContent = "Score: " + score;
+    bestScoreText.textContent = "Best: " + bestScore;
 }
 
 // Restart game
@@ -118,13 +127,26 @@ function restartGame() {
     bird.y = 150;
     bird.velocity = 0;
     pipes.length = 0;
+    gameOverBox.style.display = "none";
+    startBtn.style.display = "block";
 }
 
 // Controls
+startBtn.addEventListener("click", () => {
+    gameState = 1;
+    startBtn.style.display = "none";
+    swooshSound.play();
+});
+
+restartBtn.addEventListener("click", () => {
+    restartGame();
+});
+
 document.addEventListener("keydown", e => {
     if (e.code === "Space") {
         if (gameState === 0) {
             gameState = 1;
+            startBtn.style.display = "none";
             swooshSound.play();
         } else if (gameState === 1) {
             bird.flap();
@@ -137,6 +159,7 @@ document.addEventListener("keydown", e => {
 canvas.addEventListener("click", () => {
     if (gameState === 0) {
         gameState = 1;
+        startBtn.style.display = "none";
         swooshSound.play();
     } else if (gameState === 1) {
         bird.flap();
@@ -164,31 +187,14 @@ function draw() {
     // Bird
     bird.draw();
 
-    // UI
-    ctx.fillStyle = "#333";
-    ctx.font = "24px Arial";
-    ctx.textAlign = "center";
-
-    if (gameState === 0) {
-        ctx.fillText("Tap or Press SPACE to Start", canvas.width / 2, canvas.height / 2);
-    }
-
+    // Score on canvas (while playing)
     if (gameState === 1) {
+        ctx.fillStyle = "#333";
+        ctx.font = "24px Arial";
+        ctx.textAlign = "center";
         ctx.fillText(score, canvas.width / 2, 50);
         ctx.font = "16px Arial";
         ctx.fillText("Best: " + bestScore, canvas.width / 2, 70);
-    }
-
-    if (gameState === 2) {
-        ctx.font = "32px Arial Black";
-        ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2 - 40);
-
-        ctx.font = "20px Arial";
-        ctx.fillText("Score: " + score, canvas.width / 2, canvas.height / 2);
-        ctx.fillText("Best: " + bestScore, canvas.width / 2, canvas.height / 2 + 30);
-
-        ctx.font = "18px Arial";
-        ctx.fillText("Tap or Press SPACE to Restart", canvas.width / 2, canvas.height / 2 + 70);
     }
 }
 

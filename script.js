@@ -1,6 +1,7 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+const startBox = document.getElementById("startBox");
 const startBtn = document.getElementById("startBtn");
 const gameOverBox = document.getElementById("gameOverBox");
 const restartBtn = document.getElementById("restartBtn");
@@ -128,13 +129,13 @@ function restartGame() {
     bird.velocity = 0;
     pipes.length = 0;
     gameOverBox.style.display = "none";
-    startBtn.style.display = "block";
+    startBox.style.display = "block";
 }
 
 // Controls
 startBtn.addEventListener("click", () => {
     gameState = 1;
-    startBtn.style.display = "none";
+    startBox.style.display = "none";
     swooshSound.play();
 });
 
@@ -142,31 +143,8 @@ restartBtn.addEventListener("click", () => {
     restartGame();
 });
 
-document.addEventListener("keydown", e => {
-    if (e.code === "Space") {
-        if (gameState === 0) {
-            gameState = 1;
-            startBtn.style.display = "none";
-            swooshSound.play();
-        } else if (gameState === 1) {
-            bird.flap();
-        } else if (gameState === 2) {
-            restartGame();
-        }
-    }
-});
-
-canvas.addEventListener("click", () => {
-    if (gameState === 0) {
-        gameState = 1;
-        startBtn.style.display = "none";
-        swooshSound.play();
-    } else if (gameState === 1) {
-        bird.flap();
-    } else if (gameState === 2) {
-        restartGame();
-    }
-});
+// Initial state
+startBox.style.display = "block";
 
 // Draw everything
 function draw() {

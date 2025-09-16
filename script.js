@@ -36,6 +36,11 @@ const pipeSpeed = isMobile ? -2.5 : -3;
 const gravity = isMobile ? 0.20 : 0.25;
 const jump = isMobile ? 4.2 : 4.5;
 
+// Pipe dimensions
+const pipeWidth = 60;
+const pipeHeadWidth = 80;
+const pipeHeadHeight = 30;
+
 // Bird
 const bird = {
     x: 50,
@@ -77,8 +82,15 @@ function spawnPipe() {
 function drawPipes() {
     ctx.fillStyle = "#228B22"; // Green pipe
     pipes.forEach(pipe => {
-        ctx.fillRect(pipe.x, 0, 60, pipe.y);
-        ctx.fillRect(pipe.x, pipe.y + pipeGap, 60, canvas.height);
+        // Top Pipe Body
+        ctx.fillRect(pipe.x, 0, pipeWidth, pipe.y);
+        // Top Pipe Head
+        ctx.fillRect(pipe.x - ((pipeHeadWidth - pipeWidth) / 2), pipe.y, pipeHeadWidth, pipeHeadHeight);
+        
+        // Bottom Pipe Body
+        ctx.fillRect(pipe.x, pipe.y + pipeGap, pipeWidth, canvas.height);
+        // Bottom Pipe Head
+        ctx.fillRect(pipe.x - ((pipeHeadWidth - pipeWidth) / 2), pipe.y + pipeGap, pipeHeadWidth, pipeHeadHeight);
     });
 }
 
@@ -89,13 +101,13 @@ function updatePipes() {
         // Collision
         if (
             bird.x + bird.radius > pipe.x &&
-            bird.x - bird.radius < pipe.x + 60 &&
+            bird.x - bird.radius < pipe.x + pipeWidth &&
             (bird.y - bird.radius < pipe.y || bird.y + bird.radius > pipe.y + pipeGap)
         ) {
             gameOver();
         }
 
-        if (pipe.x + 60 < 0) {
+        if (pipe.x + pipeWidth < 0) {
             pipes.splice(i, 1);
             score++;
             scoreSound.play();

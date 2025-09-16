@@ -143,6 +143,18 @@ restartBtn.addEventListener("click", () => {
     restartGame();
 });
 
+document.addEventListener("keydown", e => {
+    if (e.code === "Space" && gameState === 1) {
+        bird.flap();
+    }
+});
+
+canvas.addEventListener("click", () => {
+    if (gameState === 1) {
+        bird.flap();
+    }
+});
+
 // Initial state
 startBox.style.display = "block";
 

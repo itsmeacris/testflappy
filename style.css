@@ -20,7 +20,6 @@ canvas {
   display: none; /* Both are hidden by default, JS will show them */
   text-align: center;
   padding: 20px;
-  background: #f0f0f0;
   border: 2px solid #333;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -29,6 +28,15 @@ canvas {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10; /* Ensures the box is on top of the canvas */
+}
+
+/* Updated start screen background color */
+#startBox {
+    background: #FFDAB9; /* Example: A light peach color */
+}
+
+#gameOverBox {
+    background: #f0f0f0; /* Stays light grey */
 }
 
 #startBox h2, #gameOverBox h2 {
@@ -50,18 +58,4 @@ canvas {
 }
 
 #startBtn, #restartBtn {
-  margin-top: 10px;
-  padding: 10px 30px;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: #ffcc00;
-  color: #333;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-}
-
-#startBtn:hover, #restartBtn:hover {
-  background: #ffdb4d;
-}
+  margin-top

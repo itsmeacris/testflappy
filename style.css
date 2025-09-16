@@ -1,11 +1,11 @@
 body {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
   background: #222;
+  position: relative; /* This is crucial for positioning the buttons */
 }
 
 canvas {
@@ -13,10 +13,44 @@ canvas {
   border-radius: 8px;
   background: #87CEEB;
   touch-action: manipulation;
+  display: block;
+}
+
+#startBox, #gameOverBox {
+  display: none; /* Both are hidden by default, JS will show them */
+  text-align: center;
+  padding: 20px;
+  background: #f0f0f0;
+  border: 2px solid #333;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10; /* Ensures the box is on top of the canvas */
+}
+
+#startBox h2, #gameOverBox h2 {
+  font-family: Arial, sans-serif;
+  font-size: 2.5em;
+  color: #c0392b;
+  margin-bottom: 10px;
+}
+
+#gameOverBox h2 {
+  color: #c0392b;
+}
+
+#gameOverBox p {
+  font-family: Arial, sans-serif;
+  font-size: 1.2em;
+  color: #555;
+  margin: 5px 0;
 }
 
 #startBtn, #restartBtn {
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 30px;
   font-size: 20px;
   font-weight: bold;
@@ -30,32 +64,4 @@ canvas {
 
 #startBtn:hover, #restartBtn:hover {
   background: #ffdb4d;
-}
-
-#gameOverBox {
-  display: none;
-  text-align: center;
-  padding: 20px;
-  background: #f0f0f0;
-  border: 2px solid #333;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-#gameOverBox h2 {
-  font-family: Arial, sans-serif;
-  font-size: 2.5em;
-  color: #c0392b;
-  margin-bottom: 10px;
-}
-
-#gameOverBox p {
-  font-family: Arial, sans-serif;
-  font-size: 1.2em;
-  color: #555;
-  margin: 5px 0;
 }
